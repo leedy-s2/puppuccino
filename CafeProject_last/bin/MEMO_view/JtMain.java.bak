@@ -1,0 +1,68 @@
+package view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import view.memo.JtMemo;
+import view.memo.JtMemoWrite;
+
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class JtMain {
+
+    private JFrame frame;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    JtMain window = new JtMain();
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Create the application.
+     */
+    public JtMain() {
+        initialize();
+    }
+
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 450, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+        
+        JPanel panel = new JPanel();
+        panel.setBounds(0, 0, 434, 261);
+        frame.getContentPane().add(panel);
+        panel.setLayout(null);
+        
+        JButton btnNewButton = new JButton("memo");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JtMemo mList = new JtMemo();
+                // frame.setVisible(false);//메인창을 숨길 때
+                frame.dispose();// 현재창을 종료시킬 때
+            }
+        });
+        btnNewButton.setBounds(129, 79, 175, 103);
+        panel.add(btnNewButton);
+    }
+}

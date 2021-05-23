@@ -1,0 +1,96 @@
+package view.memo;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+
+import dao.JtMemoDao;
+import dto.JtMemoDto;
+
+public class JtMemoWrite {
+
+    private JFrame frame;
+    JtMemoDao dao = new JtMemoDao();
+
+    /**
+     * Create the application.
+     */
+    public JtMemoWrite() {
+        initialize();
+        frame.setVisible(true);
+    }
+
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 600, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        JPanel panel = new JPanel();
+        panel.setBounds(0, 0, 584, 461);
+        frame.getContentPane().add(panel);
+        panel.setLayout(null);
+
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(12, 10, 565, 441);
+        panel.add(panel_1);
+        panel_1.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("전달사항 작성");
+        lblNewLabel.setBounds(14, 10, 109, 15);
+        panel_1.add(lblNewLabel);
+
+        JPanel panel_2 = new JPanel();
+        panel_2.setLayout(null);
+        panel_2.setBounds(401, 10, 154, 421);
+        panel_1.add(panel_2);
+
+        JTextPane tp_memo = new JTextPane();
+        tp_memo.setBounds(14, 35, 378, 396);
+        panel_1.add(tp_memo);
+
+        JButton btn_write = new JButton("작성완료");
+        btn_write.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String memo = tp_memo.getText();
+                if (memo == null || memo.length() == 0) {
+                    JOptionPane.showMessageDialog(null, "메모를 작성후 등록하세요.", "메모 등록실패", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JtMemoDto dto = new JtMemoDto(memo);
+                    int cnt = dao.insertMemo(dto);
+                    if (cnt > 0) {
+                        JOptionPane.showMessageDialog(null, "메모가 등록 되었습니다.");
+                        JtMemo mList = new JtMemo();
+                        // frame.setVisible(false);//메인창을 숨길 때
+                        frame.dispose();// 현재창을 종료시킬 때
+                    } else {
+                        JOptionPane.showMessageDialog(null, "메모를 등록하지 못했습니다.", "메모 등록실패", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        btn_write.setBounds(12, 10, 130, 50);
+        panel_2.add(btn_write);
+
+        JButton btn_list = new JButton("전달사항 목록");
+        btn_list.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JtMemo mList = new JtMemo();
+                // frame.setVisible(false);//메인창을 숨길 때
+                frame.dispose();// 현재창을 종료시킬 때
+            }
+        });
+        btn_list.setBounds(12, 70, 130, 50);
+        panel_2.add(btn_list);
+
+    }
+}

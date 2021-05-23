@@ -1,0 +1,104 @@
+package view.memo;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+
+public class JtMemoView {
+
+    private JFrame frame;
+    JTextPane tp_view = new JTextPane();
+
+    /**
+     * Create the application.
+     */
+    /*
+    public JtMemoView() {
+        initialize();
+        frame.setVisible(true);
+    }
+    */
+
+    public JtMemoView(Object value) {
+        initialize();
+        frame.setVisible(true);
+        /*
+         * tp_view.setForeground(new Color(25, 25, 112)); 
+         * tp_view.setEnabled(false);
+         * tp_view.setBackground(new Color(119, 136, 153)); 
+         * tp_view.setBounds(0, 25,
+         * 374, 396);
+         */
+        tp_view.setText((String) value);
+    }
+
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 600, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+        
+        JPanel panel = new JPanel();
+        panel.setBounds(0, 0, 584, 461);
+        frame.getContentPane().add(panel);
+        panel.setLayout(null);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(12, 10, 565, 441);
+        panel.add(panel_1);
+        panel_1.setLayout(null);
+        
+        JPanel panel_2 = new JPanel();
+        panel_2.setLayout(null);
+        panel_2.setBounds(399, 10, 154, 421);
+        panel_1.add(panel_2);
+        
+        JButton btn_write = new JButton("전달사항 쓰기");
+        btn_write.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JtMemoWrite mWrite = new JtMemoWrite();
+                // frame.setVisible(false);//메인창을 숨길 때
+                frame.dispose();// 현재창을 종료시킬 때
+            }
+        });
+        btn_write.setBounds(12, 10, 130, 50);
+        panel_2.add(btn_write);
+        
+        JButton btn_list = new JButton("전달사항 목록");
+        btn_list.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JtMemo mList = new JtMemo();
+                //frame.setVisible(false);//메인창을 숨길 때
+                frame.dispose();//현재창을 종료시킬 때
+            }
+        });
+        btn_list.setBounds(12, 70, 130, 50);
+        panel_2.add(btn_list);
+        
+        JPanel panel_3 = new JPanel();
+        panel_3.setBounds(12, 10, 374, 421);
+        panel_1.add(panel_3);
+        panel_3.setLayout(null);
+        
+        JLabel lblNewLabel = new JLabel("전달사항 확인");
+        lblNewLabel.setBounds(0, 0, 76, 15);
+        panel_3.add(lblNewLabel);
+        
+        
+        tp_view.setText((String) null);
+        tp_view.setForeground(new Color(255, 250, 240));
+        tp_view.setEnabled(false);
+        tp_view.setBackground(new Color(119, 136, 153));
+        tp_view.setBounds(0, 25, 374, 396);
+        panel_3.add(tp_view);
+    }
+}
